@@ -2,26 +2,30 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {RkButton, RkTextInput, RkText} from 'react-native-ui-kitten';
 
-export default class Login extends React.Component {
+export default class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            firstName: "",
+            lastName: "",
         };
     }
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <RkText rkType='large primary'> Login to JOINmE </RkText>
+        <RkText rkType='large primary'> Join JOINmE </RkText>
         <RkTextInput label='email' onChangeText={(text) => this.setState({email: text})} value={this.state.email} />
-        <RkTextInput label='Password' onChangeText={(text) => this.setState({password: text})} value={this.state.password} />
-        <RkButton rkType='rounded stretch'>Login</RkButton>
+        <RkTextInput label='password' onChangeText={(text) => this.setState({password: text})} value={this.state.password} />
+        <RkTextInput label='first name' onChangeText={(text) => this.setState({firstName: text})} value={this.state.firstName} />
+        <RkTextInput label='last name' onChangeText={(text) => this.setState({lastName: text})} value={this.state.lastName} />
+        <RkButton rkType='rounded stretch'>Sign Up!</RkButton>
         <View style={styles.register}>
-            <Text>Don't have an account?</Text>
-            <RkButton rkType='clear' onPress={() => navigate('Register')}>
-                <RkText rkType='header6'> Sign up now </RkText>
+            <Text>Already have an account?</Text>
+            <RkButton rkType='clear' onPress={() => navigate('Login')} >
+                <RkText rkType='header6'> Login </RkText>
             </RkButton>
         </View>
       </View>
