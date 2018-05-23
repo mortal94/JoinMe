@@ -12,7 +12,7 @@ export default class Login extends React.Component {
 
   handleLogin(email, password, navigate) {
     FirebaseGateway.login(email, password)
-      .then(() => navigate('Home'))
+      .then(() => navigate('MeetingsList'))
       .catch(() => {
         this.setState({ loginFailed: true })
       })
@@ -26,12 +26,15 @@ export default class Login extends React.Component {
         <RkText rkType="large primary"> Login to JoinMe</RkText>
         { this.state.loginFailed && <RkText style={styles.errorMessage}>Email or password is incorrect</RkText> }
         <RkTextInput
-          label="email"
+          rkType='rounded'
+          placeholder="email"
           onChangeText={text => this.setState({ email: text })}
           value={email}
         />
         <RkTextInput
-          label="Password"
+          secureTextEntry={true}
+          rkType='rounded'
+          placeholder="Password"
           onChangeText={text => this.setState({ password: text })}
           value={password}
         />
@@ -59,7 +62,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 15
   },
   errorMessage: {
     color: 'red'

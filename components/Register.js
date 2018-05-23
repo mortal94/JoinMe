@@ -11,9 +11,10 @@ export default class Register extends React.Component {
     lastName: ''
   };
 
-  async signUpClicked(email, password, navigate) {
+  async signUpClicked(email, password, firstName, lastName, navigate) {
     await FirebaseGateway.signup(email, password);
-    navigate('Home');
+    await FirebaseGateway.saveUserData(firstName, lastName);
+    navigate('Login');
   }
 
   render() {
@@ -31,6 +32,7 @@ export default class Register extends React.Component {
           label="password"
           onChangeText={text => this.setState({ password: text })}
           value={password}
+          secureTextEntry={true}
         />
         <RkTextInput
           label="first name"
@@ -42,7 +44,10 @@ export default class Register extends React.Component {
           onChangeText={text => this.setState({ lastName: text })}
           value={lastName}
         />
-        <RkButton rkType="rounded stretch" onPress={() => this.signUpClicked(email, password, navigate)}>Sign Up!</RkButton>
+        <RkButton rkType="rounded stretch"
+                  onPress={() => this.signUpClicked(email, password, firstName, lastName, navigate)}>
+          Sign Up!
+        </RkButton>
         <View style={styles.register}>
           <Text>Already have an account?</Text>
           <RkButton rkType="clear" onPress={() => navigate('Login')}>

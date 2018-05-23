@@ -1,13 +1,13 @@
 import React from 'react';
 import Login from './components/Login';
 import Register from './components/Register';
-import Home from './components/Home';
+import MeetingsList from './components/MeetingsList';
 import { createStackNavigator } from 'react-navigation';
 
 const RootStack = createStackNavigator({
   Login,
   Register,
-  Home
+  MeetingsList
 },
 {
   initialRouteName: 'Login',

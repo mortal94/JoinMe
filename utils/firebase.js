@@ -10,21 +10,36 @@ firebase.initializeApp(config);
 class FirebaseGateway {
   async signup(email, pass) {
     try {
-      await firebase.auth()
-        .createUserWithEmailAndPassword(email, pass);
+      await firebase.auth().createUserWithEmailAndPassword(email, pass);
     } catch (error) {
+      console.log(error.toString())
+    }
+  }
+
+  async saveUserData(firstName, secondName) {
+    try {
+      await firebase.database().ref(`users/${this.getCurrentUser().uid}`)
+        .set({
+          firstName,
+          secondName
+        })
+    }
+    catch (error) {
       console.log(error.toString())
     }
   }
 
   async login(email, pass) {
     try {
-      await firebase.auth()
-        .signInWithEmailAndPassword(email, pass);
+      await firebase.auth().signInWithEmailAndPassword(email, pass);
     } catch (error) {
       console.log(error.toString());
       throw error;
     }
+  }
+
+  getCurrentUser() {
+    return firebase.auth().currentUser;
   }
 }
 
