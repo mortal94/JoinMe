@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import FirebaseGateway from '../utils/firebase';
 import MeetingComponent from './MeetingComponent';
-import { RkButton } from "react-native-ui-kitten";
+import { RkButton, RkText } from "react-native-ui-kitten";
 
 export default class MeetingsList extends Component {
   state = {
@@ -23,6 +23,7 @@ export default class MeetingsList extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View>
+        <RkText style={styles.header} rkType="primary">JOIN<RkText style={styles.headerM} rkType="primary">m</RkText>E</RkText>
         <ScrollView>
           {meetings}
         </ScrollView>
@@ -33,6 +34,13 @@ export default class MeetingsList extends Component {
 }
 
 const styles = StyleSheet.create({
+  headerM:{
+    fontSize: 70
+  },
+  header:{
+    fontSize: 50,
+    textAlign: 'center'
+  },
   floatingButton: {
     position: 'absolute',
     bottom: 10,
