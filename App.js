@@ -13,7 +13,8 @@ const RootStack = createStackNavigator(
     AddMeeting
   },
   {
-    initialRouteName: 'Login'
+    initialRouteName: 'Login',
+    headerMode: 'none'
   }
 );
 
