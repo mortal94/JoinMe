@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Image, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { RkButton, RkCard, RkText, RkTheme } from "react-native-ui-kitten";
 
 RkTheme.setType('RkCard', 'meeting', {
-  img:{
+  img: {
     height: 125,
     opacity: 1
   },
   header: {
     flex: 1,
     padding: 5,
+    fontSize: 24
   },
   content: {
     display: 'flex',
@@ -21,25 +22,20 @@ RkTheme.setType('RkCard', 'meeting', {
 export default class MeetingComponent extends Component {
   render() {
     return (
-      <View>
+      <View style={styles.meeting}>
         <RkCard rkType='meeting'>
-          <View rkCardHeader>
-            <RkText>
-              Drone Flying in Rishon Leziyon
+          <View>
+            <RkText rkCardHeader>
+              {`${this.props.meeting.type} In ${this.props.meeting.place}`}
             </RkText>
           </View>
           <Image rkCardImg source={require('../images/drone.jpg')}/>
           <View rkCardContent>
             <RkText>
-              Location: Bahad sheva
+              {`Age: ${this.props.meeting.age}`}
             </RkText>
             <RkText>
-              Time: 18:00 PM
-            </RkText>
-          </View>
-          <View rkCardContent>
-            <RkText>
-              Skill: Noobs
+              {`Skill: ${this.props.meeting.skill}`}
             </RkText>
           </View>
           <View rkCardFooter>
@@ -50,3 +46,9 @@ export default class MeetingComponent extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  meeting: {
+    paddingBottom: 10
+  }
+});
