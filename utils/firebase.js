@@ -7,4 +7,27 @@ const config = {
 };
 firebase.initializeApp(config);
 
-export const database = firebase.database();
+class FirebaseGateway {
+  async signup(email, pass) {
+    try {
+      await firebase.auth()
+        .createUserWithEmailAndPassword(email, pass);
+    } catch (error) {
+      console.log(error.toString())
+    }
+  }
+
+  async login(email, pass) {
+    try {
+      await firebase.auth()
+        .signInWithEmailAndPassword(email, pass);
+    } catch (error) {
+      console.log(error.toString());
+      throw error;
+    }
+  }
+}
+
+export default new FirebaseGateway();
+
+
