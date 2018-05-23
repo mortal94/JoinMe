@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { RkText } from 'react-native-ui-kitten';
+import { ScrollView, View } from 'react-native';
+import MeetingComponent from "./MeetingComponent";
 
 export default class MeetingsList extends Component {
   render() {
     return (
       <View>
-        <RkText rkType="large primary"> Meetings List</RkText>
+        <ScrollView>
+          <MeetingComponent/>
+        </ScrollView>
       </View>
     )
   }
