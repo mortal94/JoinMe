@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { AsyncStorage, View, ScrollView, StyleSheet } from 'react-native';
 import FirebaseGateway from '../utils/firebase';
 import MeetingComponent from './MeetingComponent';
-import { RkButton, RkText } from "react-native-ui-kitten";
+import { RkButton } from "react-native-ui-kitten";
 
 export default class MeetingsList extends Component {
   state = {
@@ -16,6 +16,15 @@ export default class MeetingsList extends Component {
         this.setState({ meetings: Object.values(meetings) });
       }
     });
+    this.logout = this.logout.bind(this)
+  }
+
+  logout()
+  {
+    const { navigate } = this.props.navigation;
+    AsyncStorage.setItem('@userSessionStore:loggedOnUser', '')
+        .then(()=> navigate('Login'))
+        .catch(() => this.setState({ logoutFailed: true }))
   }
 
   render() {
@@ -23,11 +32,11 @@ export default class MeetingsList extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View>
-        <RkText style={styles.header} rkType="primary">JOIN<RkText style={styles.headerM} rkType="primary">m</RkText>E</RkText>
         <ScrollView>
           {meetings}
         </ScrollView>
         <RkButton style={styles.floatingButton} onPress={() => navigate('AddMeeting')}>+</RkButton>
+        <RkButton style={styles.floatingLogoutButton} onPress={this.logout}>LO</RkButton>
       </View>
     );
   }
@@ -38,13 +47,21 @@ const styles = StyleSheet.create({
     fontSize: 70
   },
   header:{
-    fontSize: 50,
-    textAlign: 'center'
+    fontSize: 50
   },
   floatingButton: {
     position: 'absolute',
     bottom: 10,
     right: 10,
+    borderRadius: 30,
+    height: 60,
+    width: 60,
+    zIndex: 666
+  },
+  floatingLogoutButton: {
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
     borderRadius: 30,
     height: 60,
     width: 60,

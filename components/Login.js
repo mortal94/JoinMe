@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View, Image } from 'react-native';
 import { RkButton, RkTextInput, RkText } from 'react-native-ui-kitten';
 import FirebaseGateway from '../utils/firebase';
 
@@ -12,7 +12,10 @@ export default class Login extends React.Component {
 
   handleLogin(email, password, navigate) {
     FirebaseGateway.login(email, password)
-      .then(() => navigate('MeetingsList'))
+      .then(async () => {
+        await AsyncStorage.setItem('@userSessionStore:loggedOnUser', email);
+        navigate('MeetingsList')
+      })
       .catch(() => {
         this.setState({ loginFailed: true })
       })
@@ -21,6 +24,19 @@ export default class Login extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     const { email, password } = this.state;
+    AsyncStorage.getItem('@userSessionStore:loggedOnUser')
+        .then(cb =>{
+          if(cb != null)
+          {
+            navigate('MeetingsList');
+          }
+        })
+        .catch(() => {
+          this.setState({
+            loginFailed: true
+          })
+        });
+
     return (
       <View style={styles.container}>
         <RkText style={styles.header} rkType="primary">JOIN<RkText style={styles.headerM} rkType="primary">m</RkText>E</RkText>
